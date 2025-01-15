@@ -30,7 +30,7 @@ public class UserEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private RoleUser roleUser;
-    private String phone_number;
+    private String phoneNumber;
 
 
     @Override
@@ -42,7 +42,7 @@ public class UserEntity implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", roleUser=" + roleUser +
-                ", phone_number='" + phone_number + '\'' +
+                ", phone_number='" + phoneNumber + '\'' +
                 '}';
     }
 

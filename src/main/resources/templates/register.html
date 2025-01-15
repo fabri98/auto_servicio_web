@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="#"> <!-- Enlace a tu CSS personalizado -->
+</head>
+<body>
+<div class="container">
+    <h2 class="title">Registrarse</h2>
+    <form th:action="@{/api/register}" th:object="${user}" method="post">
+        <!-- Nombre -->
+        <div class="form-group">
+            <label for="firstName">Nombre</label>
+            <input type="text" id="firstName" name="name" th:field="*{firstName}" placeholder="Ingresa tu nombre" required>
+            <p class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error en el nombre</p>
+        </div>
+
+        <!-- Apellido -->
+        <div class="form-group">
+            <label for="lastName">Apellido</label>
+            <input type="text" id="lastName" name="name" th:field="*{lastName}" placeholder="Ingresa tu nombre" required>
+            <p class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error en el nombre</p>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Correo Electrónico</label>
+            <input type="email" id="email" name="email" th:field="*{email}" placeholder="Ingresa tu correo electrónico" required>
+            <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error en el correo electrónico</p>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" th:field="*{password}" placeholder="Ingresa tu contraseña" required>
+            <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error en la contraseña</p>
+        </div>
+
+        <!-- Selección de Rol -->
+        <div>
+            <label for="roleUser">Selecciona tu Rol</label>
+            <select id="roleUser" name="roleUser" th:field="*{roleUser}" required>
+                <option value="CUSTOMER">Customer</option>
+                <option value="EMPLOYEE">Employee</option>
+            </select>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-group">
+            <label for="phoneNumber">Teléfono</label>
+            <input type="tel" id="phoneNumber" name="phone" th:field="*{phoneNumber}" placeholder="Ingrese su teléfono" pattern="\+54\d{10}" required>
+            <small>Formato: +54XXXXXXXXXX</small>
+            <p class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Error en el teléfono</p>
+        </div>
+
+        <!-- Botón de registro -->
+        <div class="form-group">
+            <button type="submit" class="btn">Registrar</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

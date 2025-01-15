@@ -24,20 +24,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-
         return httpSecurity
-                .csrf(csrf-> csrf.disable())
-                .httpBasic(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable())
+                .httpBasic(Customizer.withDefaults()) // Usar autenticación básica HTTP
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(http -> {
-                    // public routes
-                    http.requestMatchers(HttpMethod.POST,"/auth/register").permitAll();
+                .authorizeHttpRequests(auth -> auth
+                        // Rutas públicas
+                        .requestMatchers(HttpMethod.GET,"/api/register").permitAll()
 
-                    // private routes
-                    http.requestMatchers(HttpMethod.GET,"/auth/hello").authenticated();
-                })
+                        // Rutas privadas
+                        .requestMatchers(HttpMethod.GET, "/api/hello").authenticated()
+
+                        // Otras rutas (por defecto denegadas)
+                        .anyRequest().permitAll()
+                )
                 .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
